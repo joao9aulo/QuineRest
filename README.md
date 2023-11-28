@@ -1,0 +1,2 @@
+# QuineRest
+A Rest Quine
