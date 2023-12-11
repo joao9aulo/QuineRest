@@ -1,4 +1,5 @@
 com/example/restquine/QuineController.class
+com/example/restquine/CompileClass.class
 com/example/restquine/QuineRestApplication.class
 com/example/restquine/Quine.class
 com/example/restquine/CreateJar.class
