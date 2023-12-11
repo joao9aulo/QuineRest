@@ -28,34 +28,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/joao/IdeaProjects/QuineRest&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ClasseFusionada.executor": "Run",
+    "Application.CompileClass.executor": "Debug",
+    "Application.CreateJar.executor": "Run",
+    "Application.QuineRestApplication (1).executor": "Run",
+    "Application.QuineRestApplication (2).executor": "Run",
+    "Application.QuineRestApplication.executor": "Debug",
+    "JAR Application.my-jar.jar.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/joao/IdeaProjects/QuineRest"
   }
-}</component>
+}]]></component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.QuineRestApplication (3)">
+  <component name="RunManager" selected="Application.CreateJar">
     <configuration name="CreateJar" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.restquine.CreateJar" />
-      <module name="restquine" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.restquine.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Quine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.restquine.Quine" />
       <module name="restquine" />
       <extension name="coverage">
         <pattern>
@@ -93,7 +88,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="QuineRestApplication (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="QuineRestApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.restquine.QuineRestApplication" />
       <module name="restquine" />
       <extension name="coverage">
@@ -106,15 +101,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="my-jar.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/my-jar.jar" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.QuineRestApplication (3)" />
         <item itemvalue="Application.CreateJar" />
-        <item itemvalue="Application.Quine" />
+        <item itemvalue="JAR Application.my-jar.jar" />
         <item itemvalue="Application.QuineRestApplication (2)" />
         <item itemvalue="Application.QuineRestApplication (1)" />
+        <item itemvalue="Application.QuineRestApplication" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-openjdk-21.0.1-8336523bb0d9-cc9f59e6" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -126,5 +132,21 @@
       <updated>1701211127271</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../src/main/java/com/example/restquine/CompileClass.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../src/main/java/com/example/restquine/QuineRestApplication.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

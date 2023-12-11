@@ -35,10 +35,8 @@ class QuineController {
 
     private void createJar() throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 // Prepare source somehow.
-        String source = "package test; public class Test { static { System.out.println(\"aehoooo\"); } public Test() { System.out.println(\"world\"); } }";
-
-// Save source in .java file.
-        File root = Files.createTempDirectory("java").toFile();
+        String className = this.getClass().getName();
+        String source = getClass().getModule().getResourceAsStream("QuineRestApplication.java").readAllBytes().toString();        File root = Files.createTempDirectory("java").toFile();
         File sourceFile = new File(root, "test/Test.java");
         sourceFile.getParentFile().mkdirs();
         Files.write(sourceFile.toPath(), source.getBytes(StandardCharsets.UTF_8));
