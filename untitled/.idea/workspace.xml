@@ -35,7 +35,7 @@
     "Application.CreateJar.executor": "Run",
     "Application.QuineRestApplication (1).executor": "Run",
     "Application.QuineRestApplication (2).executor": "Run",
-    "Application.QuineRestApplication.executor": "Debug",
+    "Application.QuineRestApplication.executor": "Run",
     "JAR Application.my-jar.jar.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -48,7 +48,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.CreateJar">
+  <component name="RunManager" selected="Application.QuineRestApplication">
     <configuration name="CreateJar" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.restquine.CreateJar" />
       <module name="restquine" />
@@ -107,11 +107,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.QuineRestApplication" />
         <item itemvalue="Application.CreateJar" />
         <item itemvalue="JAR Application.my-jar.jar" />
         <item itemvalue="Application.QuineRestApplication (2)" />
         <item itemvalue="Application.QuineRestApplication (1)" />
-        <item itemvalue="Application.QuineRestApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -140,11 +140,6 @@
           <url>file://$PROJECT_DIR$/../src/main/java/com/example/restquine/CompileClass.java</url>
           <line>22</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/../src/main/java/com/example/restquine/QuineRestApplication.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -2,18 +2,19 @@ package com.example.restquine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @SpringBootApplication
 public class QuineRestApplication {
@@ -26,29 +27,54 @@ public class QuineRestApplication {
 @RestController
 class QuineController {
 
-    @GetMapping("/code")
-    public String getCode() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        createJar();
+    @GetMapping("/jar")
+    public ResponseEntity<byte[]> getJar() throws IOException {
+        // Prepare source code
+        String source = "package test; public class Test { static { System.out.println(\"aehoooo\"); } public Test() { System.out.println(\"world\"); } }";
 
-        return "OK";
+        // Compile source code
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        byte[] classBytes = compileSource(source, compiler);
+
+        // Create JAR in memory
+        ByteArrayOutputStream jarOutputStream = createJar(classBytes);
+
+        // Create response
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        ContentDisposition  contentDisposition = ContentDisposition.builder("attachment").filename("test.jar").build();
+        headers.setContentDisposition(contentDisposition);
+
+        return new ResponseEntity<>(jarOutputStream.toByteArray(), headers, HttpStatus.OK);
     }
 
-    private void createJar() throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-// Prepare source somehow.
-        String className = this.getClass().getName();
-        String source = getClass().getModule().getResourceAsStream("QuineRestApplication.java").readAllBytes().toString();        File root = Files.createTempDirectory("java").toFile();
-        File sourceFile = new File(root, "test/Test.java");
+    private byte[] compileSource(String source, JavaCompiler compiler) throws IOException {
+        File tempDir = Files.createTempDirectory("java").toFile();
+        File sourceFile = new File(tempDir, "test/Test.java");
         sourceFile.getParentFile().mkdirs();
         Files.write(sourceFile.toPath(), source.getBytes(StandardCharsets.UTF_8));
 
-// Compile source file.
-        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-        compiler.run(null, null, null, sourceFile.getPath());
+        // Compile source file
+        compiler.run(null, null, null, "-d", tempDir.getAbsolutePath(), sourceFile.getPath());
 
-// Load and instantiate compiled class.
-        URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{root.toURI().toURL()});
-        Class<?> cls = Class.forName("test.Test", true, classLoader); // Should print "hello".
-        Object instance = cls.getDeclaredConstructor().newInstance(); // Should print "world".
-        System.out.println(instance); // Should print "test.Test@hashcode".
+        // Read compiled class file
+        File classFile = new File(tempDir, "test/Test.class");
+        return Files.readAllBytes(classFile.toPath());
+    }
+
+    private ByteArrayOutputStream createJar(byte[] classBytes) throws IOException {
+        ByteArrayOutputStream jarOutputStream = new ByteArrayOutputStream();
+        ZipOutputStream zipOutputStream = new ZipOutputStream(jarOutputStream);
+
+        // Add class file to JAR
+        ZipEntry classEntry = new ZipEntry("test/Test.class");
+        zipOutputStream.putNextEntry(classEntry);
+        zipOutputStream.write(classBytes);
+        zipOutputStream.close();
+
+        // Close ZIP stream
+        zipOutputStream.close();
+
+        return jarOutputStream;
     }
 }
