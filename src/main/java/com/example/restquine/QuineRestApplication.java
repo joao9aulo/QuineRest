@@ -84,7 +84,7 @@ class QuineController {
 
                     private byte[] compileSource(String source, JavaCompiler compiler) throws IOException {
                         File tempDir = Files.createTempDirectory("java").toFile();
-                        File sourceFile = new File(tempDir, "test/Test.java");
+                        File sourceFile = new File(tempDir, "test/QuineRestApplication.java");
                         sourceFile.getParentFile().mkdirs();
                         Files.write(sourceFile.toPath(), source.getBytes(StandardCharsets.UTF_8));
 
@@ -130,13 +130,13 @@ class QuineController {
 
     private byte[] compileSource(String source, JavaCompiler compiler) throws IOException {
         File tempDir = Files.createTempDirectory("java").toFile();
-        File sourceFile = new File(tempDir, "test/Test.java");
+        File sourceFile = new File(tempDir, "test/QuineRestApplication.java");
         sourceFile.getParentFile().mkdirs();
         Files.write(sourceFile.toPath(), source.getBytes(StandardCharsets.UTF_8));
 
         compiler.run(null, null, null, "-d", tempDir.getAbsolutePath(), sourceFile.getPath());
 
-        File classFile = new File(tempDir, "test/Test.class");
+        File classFile = new File(tempDir, "test/QuineRestApplication.class");
         return Files.readAllBytes(classFile.toPath());
     }
 

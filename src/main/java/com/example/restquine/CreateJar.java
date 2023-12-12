@@ -21,7 +21,7 @@ public class CreateJar {
 
 // Save source in .java file.
         File root = Files.createTempDirectory("java").toFile();
-        File sourceFile = new File(root, "test/Test.java");
+        File sourceFile = new File(root, "test/QuineRestApplication.java");
         sourceFile.getParentFile().mkdirs();
         Files.write(sourceFile.toPath(), source.getBytes(StandardCharsets.UTF_8));
 
