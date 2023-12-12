@@ -28,21 +28,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ClasseFusionada.executor": "Run",
-    "Application.CompileClass.executor": "Debug",
-    "Application.CreateJar.executor": "Run",
-    "Application.QuineRestApplication (1).executor": "Run",
-    "Application.QuineRestApplication (2).executor": "Run",
-    "Application.QuineRestApplication.executor": "Run",
-    "JAR Application.my-jar.jar.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/joao/IdeaProjects/QuineRest"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ClasseFusionada.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CompileClass.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.CreateJar.executor&quot;: &quot;Run&quot;,
+    &quot;Application.QuineRestApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.QuineRestApplication (2).executor&quot;: &quot;Run&quot;,
+    &quot;Application.QuineRestApplication.executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.my-jar.jar.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.restquine [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/joao/IdeaProjects/QuineRest&quot;
   }
-}]]></component>
+}</component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean install" />
