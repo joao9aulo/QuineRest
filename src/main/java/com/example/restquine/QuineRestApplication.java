@@ -64,7 +64,7 @@ class QuineController {
                     @GetMapping("/jar")
                     public ResponseEntity<byte[]> getJar() throws IOException {
                         // Prepare source code
-                        String source = %s
+                        String source = %s;
 
                         // Compile source code
                         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
