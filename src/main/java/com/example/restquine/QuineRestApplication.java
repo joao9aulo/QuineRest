@@ -29,6 +29,8 @@ class QuineController {
 
     @GetMapping("/jar")
     public ResponseEntity<byte[]> getJar() throws IOException {
+        String textBlockQuotes = new String(new char[]{'"', '"', '"'});
+        char newLine = 10;
         String code = """
                 package com.example.restquine;
 
@@ -112,7 +114,9 @@ class QuineController {
                 }
                 """;
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-        byte[] classBytes = compileSource(code, compiler);
+        String formatedCode = code.formatted(textBlockQuotes + newLine + code + textBlockQuotes);
+        System.out.print(formatedCode);
+        byte[] classBytes = compileSource(formatedCode, compiler);
 
         ByteArrayOutputStream jarOutputStream = createJar(classBytes);
 
