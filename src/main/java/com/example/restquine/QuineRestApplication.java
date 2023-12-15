@@ -123,8 +123,9 @@ public class QuineRestApplication {
         Files.write(sourceFile.toPath(), source.getBytes(StandardCharsets.UTF_8));
 
         compiler.run(null, null, null, "-d", tempDir.getAbsolutePath(), sourceFile.getPath());
-        System.out.print(tempDir.listFiles());
-        File classFile = new File(tempDir, "test/QuineRestApplication.class");
+        System.out.print(tempDir.listFiles()[0]);
+        System.out.print(tempDir.listFiles()[1]);
+        File classFile = new File(tempDir, "com/example/restquine/QuineRestApplication.class");
         return Files.readAllBytes(classFile.toPath());
     }
 
