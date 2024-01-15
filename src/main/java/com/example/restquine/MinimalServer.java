@@ -51,7 +51,7 @@ public class MinimalServer {
     }
 
     private static ByteArrayOutputStream createJarFile() throws IOException {
-        String source = "package test; public class Quine{ static { System.out.println(\"aehoooo\"); } public static void main(String[] args) { System.out.println(\"world\"); } }";
+        String source = "package test; public class Quine{ public static void main(String[] args) { System.out.println(\"teste\"); } }";
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
         File tempDir = Files.createTempDirectory("test").toFile();
         File sourceFile = new File(tempDir, "test/Quine.java");
@@ -63,13 +63,30 @@ public class MinimalServer {
         File classFile = new File(tempDir, "test/Quine.class");
         byte[] classBytes = Files.readAllBytes(classFile.toPath());
 
+        // Criar um Manifesto
+        Manifest manifest = new Manifest();
+        Attributes mainAttributes = manifest.getMainAttributes();
+        mainAttributes.put(Attributes.Name.MANIFEST_VERSION, "1.0");
+        mainAttributes.put(Attributes.Name.MAIN_CLASS, "test/Quine");
+
+        // Adicionar atributos personalizados, se necessário
+        // mainAttributes.put(new Attributes.Name("Chave"), "Valor");
+
+        // Escrever o Manifesto em um Arquivo
+        FileOutputStream fos = new FileOutputStream("manifest.mf");
+        manifest.write(fos);
+        fos.close();
+
         ByteArrayOutputStream jarOutputStream = new ByteArrayOutputStream();
         ZipOutputStream zipOutputStream = new ZipOutputStream(jarOutputStream);
         ZipEntry classEntry = new ZipEntry("test/Quine.class");
+        ZipEntry manifestEntry = new ZipEntry("manifest.mf");
         zipOutputStream.putNextEntry(classEntry);
+        zipOutputStream.putNextEntry(manifestEntry);
         zipOutputStream.write(classBytes);
         zipOutputStream.close();
         zipOutputStream.close();
+
         return jarOutputStream;
     }
 
