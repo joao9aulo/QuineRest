@@ -9,13 +9,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.jar.*;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 public class MinimalServer {
 
     public static void main(String[] args) throws IOException {
         // Cria um arquivo JAR
-        createJarFile();
+        ByteArrayOutputStream jarOutputStream = createJarFile();
 
         // Cria o socket do servidor
         ServerSocket serverSocket = new ServerSocket(8080);
@@ -25,7 +24,6 @@ public class MinimalServer {
             Socket socket = serverSocket.accept();
             System.out.println("Aceitou a conexão");
 
-            ByteArrayOutputStream jarOutputStream =  createJarFile();
             // Escreve a resposta
             try (OutputStream output = socket.getOutputStream()) {
                 // Escreve cabeçalhos HTTP para download do arquivo
@@ -41,8 +39,6 @@ public class MinimalServer {
 
                 output.write(jarOutputStream.toByteArray());
                 output.flush();
-
-                // Fecha o input stream do arquivo
             }
 
             // Fecha a conexão
@@ -63,45 +59,22 @@ public class MinimalServer {
         File classFile = new File(tempDir, "test/Quine.class");
         byte[] classBytes = Files.readAllBytes(classFile.toPath());
 
-        // Criar um Manifesto
+        // Cria o Manifesto
         Manifest manifest = new Manifest();
-        Attributes mainAttributes = manifest.getMainAttributes();
-        mainAttributes.put(Attributes.Name.MANIFEST_VERSION, "1.0");
-        mainAttributes.put(Attributes.Name.MAIN_CLASS, "test/Quine");
-
-        // Adicionar atributos personalizados, se necessário
-        // mainAttributes.put(new Attributes.Name("Chave"), "Valor");
-
-        // Escrever o Manifesto em um Arquivo
-        FileOutputStream fos = new FileOutputStream("manifest.mf");
-        manifest.write(fos);
-        fos.close();
+        manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
+        manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "test.Quine");
 
         ByteArrayOutputStream jarOutputStream = new ByteArrayOutputStream();
-        ZipOutputStream zipOutputStream = new ZipOutputStream(jarOutputStream);
-        ZipEntry classEntry = new ZipEntry("test/Quine.class");
-        ZipEntry manifestEntry = new ZipEntry("manifest.mf");
-        zipOutputStream.putNextEntry(classEntry);
-        zipOutputStream.putNextEntry(manifestEntry);
-        zipOutputStream.write(classBytes);
-        zipOutputStream.close();
-        zipOutputStream.close();
+        JarOutputStream jarOut = new JarOutputStream(jarOutputStream, manifest);
+
+        // Adiciona a classe ao JAR
+        JarEntry classEntry = new JarEntry("test/Quine.class");
+        jarOut.putNextEntry(classEntry);
+        jarOut.write(classBytes);
+        jarOut.closeEntry();
+        // Fecha o JarOutputStream
+        jarOut.close();
 
         return jarOutputStream;
-    }
-
-    private static void addFileToJar(String source, JarOutputStream target) throws IOException {
-        File file = new File(source);
-        try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
-            JarEntry entry = new JarEntry(source.replace("\\", "/"));
-            target.putNextEntry(entry);
-
-            byte[] buffer = new byte[1024];
-            int count;
-            while ((count = in.read(buffer)) > 0) {
-                target.write(buffer, 0, count);
-            }
-            target.closeEntry();
-        }
     }
 }
