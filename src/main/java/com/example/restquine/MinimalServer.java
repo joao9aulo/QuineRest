@@ -1,9 +1,15 @@
 package com.example.restquine;
 
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.jar.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class MinimalServer {
 
@@ -19,31 +25,24 @@ public class MinimalServer {
             Socket socket = serverSocket.accept();
             System.out.println("Aceitou a conexão");
 
+            ByteArrayOutputStream jarOutputStream =  createJarFile();
             // Escreve a resposta
             try (OutputStream output = socket.getOutputStream()) {
-                File file = new File("example.jar");
                 // Escreve cabeçalhos HTTP para download do arquivo
                 PrintWriter writer = new PrintWriter(output, true);
                 writer.println("HTTP/1.1 200 OK");
                 writer.println("Server: Java HTTP Server: 1.0");
                 writer.println("Date: " + new java.util.Date());
                 writer.println("Content-type: application/java-archive");
-                writer.println("Content-length: " + file.length());
+                writer.println("Content-length: " + jarOutputStream.toByteArray().length);
                 writer.println("Content-Disposition: attachment; filename=\"Quine.jar\"");
                 writer.println(); // Linha em branco entre os cabeçalhos e o conteúdo
                 writer.flush();
 
-                // Lê o arquivo JAR e envia os dados
-                FileInputStream fileIn = new FileInputStream(file);
-                byte[] buffer = new byte[4096];
-                int length;
-                while ((length = fileIn.read(buffer)) > 0) {
-                    output.write(buffer, 0, length);
-                }
+                output.write(jarOutputStream.toByteArray());
                 output.flush();
 
                 // Fecha o input stream do arquivo
-                fileIn.close();
             }
 
             // Fecha a conexão
@@ -51,13 +50,27 @@ public class MinimalServer {
         }
     }
 
-    private static void createJarFile() throws IOException {
-        Manifest manifest = new Manifest();
-        manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
-        try (JarOutputStream target = new JarOutputStream(new FileOutputStream("example.jar"), manifest)) {
-            //addFileToJar("com/example/restquine/MinimalServer.class", target);
-            // Adicione mais arquivos conforme necessário
-        }
+    private static ByteArrayOutputStream createJarFile() throws IOException {
+        String source = "package test; public class Quine{ static { System.out.println(\"aehoooo\"); } public static void main(String[] args) { System.out.println(\"world\"); } }";
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        File tempDir = Files.createTempDirectory("test").toFile();
+        File sourceFile = new File(tempDir, "test/Quine.java");
+        sourceFile.getParentFile().mkdirs();
+        Files.write(sourceFile.toPath(), source.getBytes(StandardCharsets.UTF_8));
+
+        compiler.run(null, null, null, "-d", tempDir.getAbsolutePath(), sourceFile.getPath());
+
+        File classFile = new File(tempDir, "test/Quine.class");
+        byte[] classBytes = Files.readAllBytes(classFile.toPath());
+
+        ByteArrayOutputStream jarOutputStream = new ByteArrayOutputStream();
+        ZipOutputStream zipOutputStream = new ZipOutputStream(jarOutputStream);
+        ZipEntry classEntry = new ZipEntry("test/Quine.class");
+        zipOutputStream.putNextEntry(classEntry);
+        zipOutputStream.write(classBytes);
+        zipOutputStream.close();
+        zipOutputStream.close();
+        return jarOutputStream;
     }
 
     private static void addFileToJar(String source, JarOutputStream target) throws IOException {
