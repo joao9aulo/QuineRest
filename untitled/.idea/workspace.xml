@@ -28,29 +28,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.ClasseFusionada.executor&quot;: &quot;Run&quot;,
-    &quot;Application.CompileClass.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.CreateJar.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MinimalServer.executor&quot;: &quot;Run&quot;,
-    &quot;Application.QuineRestApplication (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.QuineRestApplication (2).executor&quot;: &quot;Run&quot;,
-    &quot;Application.QuineRestApplication.executor&quot;: &quot;Run&quot;,
-    &quot;JAR Application.my-jar.jar.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.restquine [clean,install].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/joao/IdeaProjects/QuineRest&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ClasseFusionada.executor": "Run",
+    "Application.CompileClass.executor": "Debug",
+    "Application.CreateJar.executor": "Run",
+    "Application.MinimalServer.executor": "Run",
+    "Application.Quine.executor": "Run",
+    "Application.QuineRestApplication (1).executor": "Run",
+    "Application.QuineRestApplication (2).executor": "Run",
+    "Application.QuineRestApplication.executor": "Run",
+    "JAR Application.my-jar.jar.executor": "Run",
+    "Maven.restquine [clean,install].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/joao/IdeaProjects/QuineRest"
   }
-}</component>
+}]]></component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.MinimalServer">
+  <component name="RunManager" selected="Application.Quine">
     <configuration name="CreateJar" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.restquine.CreateJar" />
       <module name="restquine" />
@@ -64,8 +65,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MinimalServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.restquine.MinimalServer" />
+    <configuration name="Quine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.restquine.Quine" />
       <module name="restquine" />
       <extension name="coverage">
         <pattern>
@@ -77,7 +78,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="QuineRestApplication (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="QuineRestApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.restquine.QuineRestApplication" />
       <module name="restquine" />
       <extension name="coverage">
@@ -109,7 +110,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MinimalServer" />
+        <item itemvalue="Application.Quine" />
         <item itemvalue="Application.CreateJar" />
         <item itemvalue="Application.QuineRestApplication" />
         <item itemvalue="JAR Application.my-jar.jar" />
@@ -147,6 +148,11 @@
           <url>file://$PROJECT_DIR$/../src/main/java/com/example/restquine/QuineRestApplication.java</url>
           <line>128</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../src/main/java/com/example/restquine/Quine.java</url>
+          <line>61</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
